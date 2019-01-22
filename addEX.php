@@ -29,12 +29,15 @@ $file = fopen( './import/'.$saison.'/'.$saison.$type.'.ros','r');
 $newHexData = '';
 $plusEX = 0;
 
-for($i=0;$i<505;$i ++) {
+for($i=0;$i<5000;$i ++) {
 	$data = str_split(bin2hex(fread($file,86)),2);
 	$name = trim(hex2str(join(array_slice($data, 0, 20))));
 
 
 	if($i % 50 == 0) {
+		if(!array_key_exists($i/50,$teams)) {
+			break;
+		}
 		echo "------------------------------------------------".PHP_EOL;
 		echo $teams[$i/50].PHP_EOL;
 		echo "------------------------------------------------".PHP_EOL;
@@ -54,7 +57,11 @@ for($i=0;$i<505;$i ++) {
 		$newHexData .= implode('',$data);
 		continue;
 	}
-	$data[43] = dechex((int)(hexdec($data[43]) + $plusEX));
+	$newEx = hexdec($data[43]) + $plusEX;
+	if($newEx > 99) {
+		$newEx = 99;
+	}
+	$data[43] = dechex((int)($newEx));
 
 	$newHexData .= implode('',$data);
 
