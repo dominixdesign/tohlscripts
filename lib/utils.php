@@ -23,3 +23,28 @@ function hex2pos($hex) {
 		case '04': return 'G';
 	}
 }
+
+function sequenceToValue($sequence, $start = 0) {
+	return [
+		'it' => $sequence[0+$start],
+		'sp' => $sequence[1+$start],
+		'st' => $sequence[2+$start],
+		'en' => $sequence[3+$start],
+		'du' => $sequence[4+$start],
+		'di' => $sequence[5+$start],
+		'sk' => $sequence[6+$start],
+		'pa' => $sequence[7+$start],
+		'pc' => $sequence[8+$start],
+		'df' => $sequence[9+$start],
+		'sc' => $sequence[10+$start],
+		'ex' => $sequence[11+$start],
+		'ld' => $sequence[12+$start],
+	];
+}
+
+function sequenceToDec($sequence) {
+	foreach($sequence as $k => $v) {
+		$sequence[$k] = hexdec($v);
+	}
+	return $sequence;
+}
