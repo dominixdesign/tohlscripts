@@ -41,7 +41,7 @@ for($i=0;$i<5000;$i ++) {
 
 		echo $name. ' ('.$ov.') '. hex2pos($data[22])." => ".$contracts[$name]." $".$salary."
 		";
-		$data[50] = dechex((int)($contracts[$name]));
+		$data[50] = str_pad(dechex((int)($contracts[$name])), 2, '0', STR_PAD_LEFT);
 		$data[48] = $salaryHex[0] . $salaryHex[1];
 		$data[47] = $salaryHex[2] . $salaryHex[3];
 		$data[46] = $salaryHex[4] . $salaryHex[5];
