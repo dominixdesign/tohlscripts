@@ -24,6 +24,16 @@ function hex2pos($hex) {
 	}
 }
 
+function pos2hex($hex) {
+	switch($hex) {
+		case 'C': return '00';
+		case 'LW': return '01';
+		case 'RW': return '02';
+		case 'D': return '03';
+		case 'G': return '04';
+	}
+}
+
 function sequenceToValue($sequence, $start = 0) {
 	return [
 		'it' => $sequence[0+$start],
@@ -40,6 +50,14 @@ function sequenceToValue($sequence, $start = 0) {
 		'ex' => $sequence[11+$start],
 		'ld' => $sequence[12+$start],
 	];
+}
+
+
+function valuesToSequence($values, &$sequence, $start = 0) {
+  $c = 0;
+  foreach($values as $v) {
+    $sequence[$start + $c++] = $v;
+  }
 }
 
 function sequenceToDec($sequence) {

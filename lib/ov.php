@@ -16,3 +16,14 @@ if($position == 'G') {
 }
 return (int)$ov;
 }
+
+function getSalary($ov, $position) {
+
+	if($position=='G') {
+		$new = 1000*floor((17*pow(($ov-43),3) - 610*pow(($ov-43),2) + 9000*($ov-43) + 8000)/1000);
+	} else {
+		$new = 1000*floor((17*pow(($ov-45),3) - 610*pow(($ov-45),2) + 9000*($ov-45) + 8000)/1000);
+	}
+	return ($new<25000) ? 25000 : $new;
+
+}

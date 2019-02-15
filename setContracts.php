@@ -31,12 +31,7 @@ for($i=0;$i<5000;$i ++) {
 	$name = str_replace(' ','_',$name);
 	if(array_key_exists($name,$contracts) && $contracts[$name] > 0) {
 		$ov = ov(hex2pos($data[22]),sequenceToValue(sequenceToDec($data),32));
-		if(hex2pos($data[22])=='G') {
-			$new = 1000*floor((17*pow(($ov-43),3) - 610*pow(($ov-43),2) + 9000*($ov-43) + 8000)/1000);
-		} else {
-			$new = 1000*floor((17*pow(($ov-45),3) - 610*pow(($ov-45),2) + 9000*($ov-45) + 8000)/1000);
-		}
-		$salary = ($new<25000) ? 25000 : $new;
+		$salary = getSalary($ov, hex2pos($data[22]));
 		$salaryHex = str_pad(dechex($salary), 6, '0', STR_PAD_LEFT);
 
 		echo $name. ' ('.$ov.') '. hex2pos($data[22])." => ".$contracts[$name]." $".$salary."
