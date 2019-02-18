@@ -17,7 +17,7 @@ for($i=0;$i<5000;$i++) {
 	$data = str_split(bin2hex(fread($file,88)),2);
 	$name = trim(hex2str(join(array_slice($data, 2, 22))));
 
-	if(!$name) {
+	if(!$name || strlen($name)<=2) {
 		echo $i;
 		break;
 	}
@@ -28,8 +28,9 @@ for($i=0;$i<5000;$i++) {
 		}
 		$c = 0;
 	  foreach(sequenceToValue($drafties[$name],3) as $v) {
-	    $sequence[34 + $c] = dechex((int)$v);
+	    $data[34 + $c] = str_pad(dechex((int)$v), 2, '0', STR_PAD_LEFT);
 			$c++;
+			if(34+$c >= 46) break;
 	  }
 
 		$data[78] = str2hex($drafties[$name][17][0]); //nation 1. zeichen
