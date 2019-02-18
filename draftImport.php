@@ -37,8 +37,8 @@ for($i=0;$i<5000;$i++) {
 		$data[79] = str2hex($drafties[$name][17][1]); //nation 2. zeichen
 		$data[80] = str2hex($drafties[$name][17][2]); //nation 3. zeichen
 		$data[31] = dechex((int)$drafties[$name][18]); //alter
-		$data[29] = dechex((int)$drafties[$name][19]); //groesse
-		$data[30] = dechex((int)$drafties[$name][20]); //gewicht
+		$data[29] = dechex((int)$drafties[$name][19] / 2.54); //groesse
+		$data[30] = dechex((int)$drafties[$name][20] * 2.205); //gewicht
 
 		$data[24] = pos2hex($drafties[$name][1]); // Position
 		$data[28] = str_pad(dechex($drafties[$name][2]=='R' ? 1 : 0), 2, '0', STR_PAD_LEFT); // Hand
