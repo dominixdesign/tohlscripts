@@ -1,6 +1,9 @@
 <?php
 
 function ov($position, $v) {
+	$v = array_map (function ($v) {
+		return intval($v);
+	} , $v);
 if($position == 'G') {
 	//goalie
 	$ov=round(($v['it']*0.0945)+($v['sp']*0.3215)+($v['st']*0.0755)+($v['en']*0.0565)+($v['du']*0.0188)+($v['di']*0.0187)+($v['sk']*0.1325)+($v['pa']*0.0565)+($v['pc']*0.151)+($v['ex']*0.0187)+($v['ld']*0.0188)+(-1*0.475));
