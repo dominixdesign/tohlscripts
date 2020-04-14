@@ -4,7 +4,7 @@ include_once('./lib/utils.php');
 include_once('./lib/ov.php');
 include_once('./lib/getTeamList.php');
 
-$saison = 'TOHL10';
+$saison = 'TOHL11';
 $type = 'pre';
 
 $contracts = array();
@@ -17,9 +17,11 @@ foreach($files as $file) {
 }
 
 $newHexData = '';
-$plusEX = 0;
 
 $file = fopen( './import/'.$saison.'/'.$saison.$type.'.ros','r');
+if(!$file) {
+	die('cannot open import file');
+}
 for($i=0;$i<5000;$i ++) {
 	$data = str_split(bin2hex(fread($file,86)),2);
 	$name = trim(hex2str(join(array_slice($data, 0, 20))));
@@ -34,8 +36,7 @@ for($i=0;$i<5000;$i ++) {
 		$salary = getSalary($ov, hex2pos($data[22]));
 		$salaryHex = str_pad(dechex($salary), 6, '0', STR_PAD_LEFT);
 
-		echo $name. ' ('.$ov.') '. hex2pos($data[22])." => ".$contracts[$name]." $".$salary."
-		";
+		echo $name. ' ('.$ov.') '. hex2pos($data[22])." => ".$contracts[$name]." $".$salary. PHP_EOL;
 		$data[50] = str_pad(dechex((int)($contracts[$name])), 2, '0', STR_PAD_LEFT);
 		$data[48] = $salaryHex[0] . $salaryHex[1];
 		$data[47] = $salaryHex[2] . $salaryHex[3];
