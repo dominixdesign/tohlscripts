@@ -22,19 +22,24 @@ $newHexData = '';
 $currentDraftie = 1;
 for($i=0;$i<1000;$i++) {
 	$data = str_split(bin2hex(fread($file,88)),2);
-	$name = trim(hex2str(join(array_slice($data, 2, 22))));
 
-	if($name && strlen($name)>2) {
+	if(array_sum(array_map(function ($a) {
+		return hexdec($a);
+	},$data)) > 0) {
 		$newHexData .= implode('',$data);
 		continue;
 	}
-
+	$data = array_fill(0, 88, '00');
 
 	if(strlen($drafties[$currentDraftie][0])>3) {
 		echo $currentDraftie . '  ' . $drafties[$currentDraftie][0] . PHP_EOL;
 	} else {
 		break;
 	}
+
+	// $data[0] = 'FF';
+	// $data[1] = 'FF';
+
 	// Name in 22 Bytes
 	for($n = 0; $n<22; $n++) {
 		$data[2 + $n] = str2hex($drafties[$currentDraftie][0][$n]);
@@ -45,7 +50,7 @@ for($i=0;$i<1000;$i++) {
   foreach(sequenceToValue($drafties[$currentDraftie],3) as $v) {
     $data[34 + $c] = str_pad(dechex((int)$v), 2, '0', STR_PAD_LEFT);
 		$c++;
-		if(34+$c >= 46) break;
+		// if(34+$c >= 46) break;
   }
 
 	$data[78] = str2hex($drafties[$currentDraftie][17][0]); //nation 1. zeichen
