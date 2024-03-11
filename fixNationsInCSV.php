@@ -7,7 +7,7 @@ $nations = array(
   'Portugal' => 'POR',
   'Slowenien' => 'SLO',
   'Kanada' => 'CAN',
-  'Tschechien' => 'CZK',
+  'Tschechien' => 'CZE',
   'Polen' => 'POL',
   'England' => 'ENG',
   'Norwegen' => 'NOR',
@@ -54,7 +54,7 @@ $nations = array(
   'Estland' => 'EST',
 );
 
-$csvdata = file_get_contents("./import/draft14.csv");
+$csvdata = file_get_contents("./import/draf14-final.csv");
 
 foreach ($nations as $nation => $short) {
   $csvdata = str_replace(';' . $nation . ';', ';' . $short . ';', $csvdata);
@@ -66,4 +66,4 @@ preg_match_all($re, $csvdata, $matches, PREG_SET_ORDER, 0);
 echo "Unbekannte Nationen:" . PHP_EOL;
 var_dump($matches);
 
-$csvdata = file_put_contents("./import/draft14.csv", $csvdata);
+$csvdata = file_put_contents("./import/draf14-final.csv", $csvdata);
