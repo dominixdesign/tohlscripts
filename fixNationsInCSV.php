@@ -52,6 +52,21 @@ $nations = array(
   'Neuseeland' => 'NZL',
   'Irland' => 'IRL',
   'Estland' => 'EST',
+  'Mexiko' => 'MEX',
+  'Kolumbien' => 'COL',
+  'Island' => 'ISL',
+  'Brasilien' => 'BRA',
+  'Ukraine' => 'UKR',
+  'Paraguay' => 'PAR',
+  'Malta' => 'MAL',
+  'Spanien' => 'ESP',
+  'Ghana' => 'GHA',
+  'Chile' => 'CHI',
+  'Bulgarien'=> 'BUL',
+  'Griechenland'=> 'GRE',
+  'Argentinien'=> 'ARG',
+  'Indonesien'=> 'INA',
+  'Japan'=> 'JPN',
 );
 
 $csvdata = file_get_contents("./import/draf14-final.csv");
