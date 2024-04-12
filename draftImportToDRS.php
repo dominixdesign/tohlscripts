@@ -7,7 +7,7 @@ include('./lib/csvImporter.php');
 include('./lib/utils.php');
 include_once('./lib/ov.php');
 
-$importer = new CsvImporter("./import/draft14.csv", false, ';');
+$importer = new CsvImporter("./import/filler.csv", false, ';');
 $drafties = $importer->get();
 /*
 $drafties = array();
@@ -19,7 +19,7 @@ foreach ($data as $key => $p) {
 $file = fopen('./import/TOHL15pre/TOHL15pre.drs', 'r');
 
 $newHexData = '';
-$currentDraftie = 1;
+$currentDraftie = 0;
 for ($i = 0; $i < 2000; $i++) {
 	$data = str_split(bin2hex(fread($file, 88)), 2);
 	echo $drafties[$currentDraftie][0] . PHP_EOL;
@@ -64,7 +64,8 @@ for ($i = 0; $i < 2000; $i++) {
 	$data[28] = str_pad(dechex($drafties[$currentDraftie][2] == 'R' ? 1 : 0), 2, '0', STR_PAD_LEFT); // Hand
 
 	$ov = ov($drafties[$currentDraftie][1], sequenceToValue($drafties[$currentDraftie], 3));
-	$salary = getSalary($ov, hex2pos($data[24]));
+	// $salary = getSalary($ov, hex2pos($data[24]));
+	$salary = 25000;
 	$salaryHex = str_pad(dechex($salary), 6, '0', STR_PAD_LEFT);
 	$data[52] = str_pad(dechex(4), 2, '0', STR_PAD_LEFT);
 	$data[50] = $salaryHex[0] . $salaryHex[1];
@@ -81,7 +82,7 @@ for ($i = 0; $i < 2000; $i++) {
 	$newHexData .= implode('', $data);
 }
 
-$file2 = fopen('./export/TOHL15/TOHL15pre.drs', 'w+');
+$file2 = fopen('./export/TOHL15pre/TOHL15pre.drs', 'w+');
 fwrite($file2, hex2bin($newHexData));
 fclose($file);
 fclose($file2);
